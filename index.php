@@ -1,5 +1,5 @@
 <?php
-// index.php
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +11,7 @@
 </head>
 <body>
 
-    <!-- Top navigation bar -->
+   
     <div class="top-nav">
         <span class="top-nav-text">Welcome to our recruitment portal</span>
         <span class="australia">Australia</span>
@@ -22,7 +22,7 @@
         <button class="apply-button">Apply Now</button>
     </div>
 
-    <!-- Hero section -->
+   
     <section class="hero-section">
         <div class="nav-bar">
             <div class="company-logo">
@@ -46,7 +46,6 @@
         </div>
     </section>
 
-    <!-- Featured jobs/cards section -->
     <main>
         <div class="page-intro">
             <h2>Featured Opportunities</h2>
@@ -82,7 +81,7 @@
             </div>
         </div>
 
-        <!-- Other available jobs -->
+        
         <div class="more">
             <h2>Other Available Jobs</h2>
             <div class="tiles">
@@ -109,7 +108,7 @@
             </div>
         </div>
 
-        <!-- Compliance box (aside) -->
+        
         <aside class="compliance">
             <h3>Compliance</h3>
             <ul>
@@ -120,7 +119,7 @@
         </aside>
     </main>
 
-    <!-- Footer -->
+    
     <footer>
         <p>&copy; 2025 Recruitment Portal. All rights reserved.</p>
         <p>Visit our <a href="about.php">About Us</a> page for more info.</p>

@@ -1,95 +1,92 @@
 <?php
-// jobs.php
+require_once("settings.php");
+
+$conn = @mysqli_connect($host, $user, $pwd, $sql_db);
+
+if (!$conn) {
+    die("<p>Database connection failure: " . mysqli_connect_error() . "</p>");
+}
+
+$sql = "SELECT * FROM jobs";
+$result = mysqli_query($conn, $sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jobs - Recruitment Portal</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="NIWS Recruitment - Explore job opportunities in IT and Technology">
+    <meta name="keywords" content="Jobs, Careers, Recruitment, Hiring, IT, Technology, NIWS Recruitment">
+    <meta name="author" content="NIWS Recruitment Team">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NIWS Recruitment - Jobs</title>
+    <link rel="stylesheet" href="./styles/jobs.css?v=1">
+    <link rel="stylesheet" href="./styles/common.css">
+    <style>
+        aside.compliance{width:25%;float:right;border:2px solid #7c3aed;padding:12px;margin:12px 16px;background:#efe9ff;border-radius:8px}
+        .salary-chip{background:#e2d6ff;padding:2px 6px;border-radius:6px;font-weight:600}
+    </style>
 </head>
 <body>
 
-    <!-- Top navigation bar -->
-    <div class="top-nav">
-        <span class="top-nav-text">Welcome to our recruitment portal</span>
-        <span class="australia">Australia</span>
-        <div class="icon-tray">
-            <img src="assets/icon1.png" alt="icon" class="icon">
-            <img src="assets/icon2.png" alt="icon" class="icon">
-        </div>
-        <button class="apply-button">Apply Now</button>
-    </div>
+<?php include("header.inc"); ?>
+<?php include("nav.inc"); ?>
 
-    <!-- Hero section -->
-    <section class="hero-section">
-        <div class="nav-bar">
-            <div class="company-logo">
-                <img src="assets/logo.png" alt="Company Logo">
-            </div>
-            <div class="site-title">Recruitment Portal</div>
-            <ul class="nav-list">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="jobs.php">Jobs</a></li>
-                <li><a href="about.php">About Us</a></li>
-                <li><a href="apply.php">Apply</a></li>
-                <li><a href="manage.php">Manage</a></li>
-            </ul>
-        </div>
+<main class="main-content">
 
-        <div class="hero-text-section">
-            <h1 class="hero-phrase">Explore Job Opportunities</h1>
-            <p class="hero-text">Browse all positions currently available at our company.</p>
-            <a href="apply.php" class="more-button">Apply Now</a>
-        </div>
+    <section class="page-intro" aria-labelledby="intro-title">
+        <h2 id="intro-title">Featured IT Roles</h2>
     </section>
 
-    <!-- Jobs listing -->
-    <main>
-        <div class="page-intro">
-            <h2>Current Openings</h2>
-        </div>
+    <section class="featured" aria-label="Featured roles">
+        <?php
+       
+        if (mysqli_num_rows($result) > 0) {
+            while ($row = mysqli_fetch_assoc($result)) {
+                echo "<article class='job-card' aria-labelledby='ref-{$row['job_ref']}'>";
+                echo "<header class='job-card__head'>";
+                echo "<h3 id='ref-{$row['job_ref']}'>Ref: {$row['job_ref']} — {$row['title']}</h3>";
+                echo "<p class='company'>Company: {$row['company']}</p>";
+                echo "</header>";
+                echo "<p><strong>Short description:</strong> {$row['short_desc']}</p>";
+                echo "<p><strong>Salary:</strong> <span class='salary-chip'>{$row['salary']}</span></p>";
+                echo "<p><strong>Reports to:</strong> {$row['reports_to']}</p>";
 
-        <div class="tiles">
-            <div class="tile tile--p200">
-                <h3>Software Developer</h3>
-                <h4>Company A</h4>
-                <p>Develop and maintain web applications using modern frameworks.</p>
-            </div>
-            <div class="tile tile--p300">
-                <h3>Marketing Coordinator</h3>
-                <h4>Company B</h4>
-                <p>Coordinate campaigns, analyze trends, and improve brand presence.</p>
-            </div>
-            <div class="tile tile--p400">
-                <h3>Graphic Designer</h3>
-                <h4>Company C</h4>
-                <p>Create visual assets for marketing and product designs.</p>
-            </div>
-            <div class="tile tile--p500">
-                <h3>HR Assistant</h3>
-                <h4>Company D</h4>
-                <p>Support HR processes including recruitment and onboarding.</p>
-            </div>
-        </div>
+                echo "<section aria-labelledby='resp-{$row['job_ref']}'>";
+                echo "<h4 id='resp-{$row['job_ref']}'>Key responsibilities</h4>";
+                echo "<p>{$row['responsibilities']}</p>";
+                echo "</section>";
 
-        <!-- Compliance box (aside) -->
-        <aside class="compliance">
-            <h3>Compliance</h3>
-            <ul>
-                <li>Equal opportunity employer</li>
-                <li>Workplace safety certified</li>
-                <li>Privacy compliant</li>
-            </ul>
-        </aside>
-    </main>
+                echo "<section aria-labelledby='req-{$row['job_ref']}'>";
+                echo "<h4 id='req-{$row['job_ref']}'>Requirements</h4>";
+                echo "<p>{$row['requirements']}</p>";
+                echo "</section>";
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Recruitment Portal. All rights reserved.</p>
-        <p>Visit our <a href="about.php">About Us</a> page for more info.</p>
-    </footer>
+                echo "</article>";
+            }
+        } else {
+            echo "<p>No job listings found.</p>";
+        }
+        ?>
+    </section>
+
+    <aside class="compliance" aria-label="Why Work With NIWS">
+        <h3>Why Work With NIWS?</h3>
+        <ul>
+            <li>20+ years in IT & technology recruitment</li>
+            <li>Resume and interview coaching</li>
+            <li>Coverage from startups to government</li>
+            <li>Personal career consultation sessions</li>
+        </ul>
+    </aside>
+</main>
+
+<?php include("footer.inc"); ?>
 
 </body>
 </html>
+
+<?php
+
+mysqli_close($conn);
+?>

@@ -1,81 +1,86 @@
 <?php
-// apply.php
+
+include_once("header.inc");
+include_once("nav.inc");
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Apply - Recruitment Portal</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
 
-    <!-- Top navigation bar -->
-    <div class="top-nav">
-        <span class="top-nav-text">Welcome to our recruitment portal</span>
-        <span class="australia">Australia</span>
-        <div class="icon-tray">
-            <img src="assets/icon1.png" alt="icon" class="icon">
-            <img src="assets/icon2.png" alt="icon" class="icon">
-        </div>
-        <button class="apply-button">Apply Now</button>
-    </div>
-
-    <!-- Hero section -->
-    <section class="hero-section">
-        <div class="nav-bar">
-            <div class="company-logo">
-                <img src="assets/logo.png" alt="Company Logo">
-            </div>
-            <div class="site-title">Recruitment Portal</div>
-            <ul class="nav-list">
-                <li><a href="index.php">Home</a></li>
-                <li><a href="jobs.php">Jobs</a></li>
-                <li><a href="about.php">About Us</a></li>
-                <li><a href="apply.php">Apply</a></li>
-                <li><a href="manage.php">Manage</a></li>
-            </ul>
-        </div>
-
-        <div class="hero-text-section">
-            <h1 class="hero-phrase">Apply for a Job</h1>
-            <p class="hero-text">Fill out the form below to submit your expression of interest.</p>
-        </div>
+<main class="main-content">
+    <section class="page-header">
+        <h1>Apply for a Role</h1>
+        <p>Please complete the form below to submit your expression of interest.</p>
     </section>
 
-    <!-- Application Form -->
-    <main>
-        <form action="process_eoi.php" method="post">
-            <label for="full_name">Full Name:</label>
-            <input type="text" id="full_name" name="full_name" required>
+    <form id="applyForm" method="post" action="process_eoi.php" novalidate>
+        <fieldset>
+            <legend>Job Details</legend>
+
+            <label for="job_ref">Job Reference Number:</label>
+            <input type="text" id="job_ref" name="job_ref" maxlength="5" placeholder="e.g. A1B2C" required>
+
+            <label for="first_name">First Name:</label>
+            <input type="text" id="first_name" name="first_name" maxlength="20" placeholder="John" required>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" id="last_name" name="last_name" maxlength="20" placeholder="Doe" required>
+        </fieldset>
+
+        <fieldset>
+            <legend>Contact Information</legend>
 
             <label for="email">Email Address:</label>
-            <input type="email" id="email" name="email" required>
+            <input type="email" id="email" name="email" placeholder="you@example.com" required>
 
             <label for="phone">Phone Number:</label>
-            <input type="tel" id="phone" name="phone" required>
+            <input type="text" id="phone" name="phone" placeholder="04XXXXXXXX" required>
+        </fieldset>
 
-            <label for="job_title">Job Title:</label>
-            <select id="job_title" name="job_title">
-                <option value="software_developer">Software Developer</option>
-                <option value="marketing_coordinator">Marketing Coordinator</option>
-                <option value="graphic_designer">Graphic Designer</option>
-                <option value="hr_assistant">HR Assistant</option>
+        <fieldset>
+            <legend>Address</legend>
+
+            <label for="street">Street Address:</label>
+            <input type="text" id="street" name="street" required>
+
+            <label for="suburb">Suburb/Town:</label>
+            <input type="text" id="suburb" name="suburb" required>
+
+            <label for="state">State:</label>
+            <select id="state" name="state" required>
+                <option value="">Please select</option>
+                <option value="VIC">VIC</option>
+                <option value="NSW">NSW</option>
+                <option value="QLD">QLD</option>
+                <option value="NT">NT</option>
+                <option value="WA">WA</option>
+                <option value="SA">SA</option>
+                <option value="TAS">TAS</option>
+                <option value="ACT">ACT</option>
             </select>
 
-            <label for="cover_letter">Cover Letter / Comments:</label>
-            <textarea id="cover_letter" name="cover_letter" rows="6"></textarea>
+            <label for="postcode">Postcode:</label>
+            <input type="text" id="postcode" name="postcode" maxlength="4" required>
+        </fieldset>
 
+        <fieldset>
+            <legend>Skills and Other Information</legend>
+
+            <p>Please select your skills:</p>
+            <label><input type="checkbox" name="skills[]" value="Communication"> Communication</label>
+            <label><input type="checkbox" name="skills[]" value="Teamwork"> Teamwork</label>
+            <label><input type="checkbox" name="skills[]" value="Problem Solving"> Problem Solving</label>
+            <label><input type="checkbox" name="skills[]" value="Programming"> Programming</label>
+
+            <label for="other_skills">Other Skills:</label>
+            <textarea id="other_skills" name="other_skills" rows="4" cols="40" placeholder="List any other skills here..."></textarea>
+        </fieldset>
+
+        <div class="form-actions">
             <button type="submit">Submit Application</button>
-        </form>
-    </main>
+            <button type="reset">Reset Form</button>
+        </div>
+    </form>
+</main>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 Recruitment Portal. All rights reserved.</p>
-        <p>Visit our <a href="about.php">About Us</a> page for more info.</p>
-    </footer>
+<?php
 
-</body>
-</html>
+include_once("footer.inc");
+?>
